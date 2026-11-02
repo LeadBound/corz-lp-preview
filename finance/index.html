@@ -137,6 +137,9 @@ details p{margin:0 0 20px;font-size:17px}
 .mod{background:#fff;border-radius:16px;padding:18px 20px;border:1.5px solid transparent;box-shadow:0 14px 34px -26px rgba(27,41,81,.45)}
 .mod b{display:flex;align-items:center;gap:8px;color:var(--navy);font-size:18px;margin-bottom:4px}
 .mod span{font-size:15.5px;line-height:1.5;color:var(--muted)}
+.mod-new{grid-column:1/-1;background:var(--navy)}
+.mod-new b{color:#fff}.mod-new span{color:#C8CFE5}
+.mod-new em{font-style:normal;font-size:13px;font-weight:600;background:var(--magenta);color:#fff;border-radius:99px;padding:2px 10px}
 .mod b::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--magenta);flex:none}
 @media (max-width:900px){.mods{grid-template-columns:1fr 1fr}}
 @media (max-width:560px){.mods{grid-template-columns:1fr}}
@@ -222,7 +225,7 @@ details p{margin:0 0 20px;font-size:17px}
       <div class="feat"><div><h3>חשבוניות</h3><p>ספקים מגישים בפורטל או שולחים למייל ייעודי. ה-AI קורא את החשבונית, משייך אותה להזמנה ומעביר לאישור, בלי הקלדה.</p></div><video class="loop" muted loop playsinline preload="metadata" poster="../assets/still-invoices.jpg" src="../assets/loop-invoices.mp4" aria-label="הגשות ספקים"></video></div>
       <div class="feat"><div><h3>תקציב</h3><p>כל הזמנה נבדקת מול סעיף התקציב כבר כשהיא נוצרת. עץ סעיפים ודוח ביצוע מראים בכל רגע כמה נוצל וכמה באמת פנוי.</p></div><video class="loop" muted loop playsinline preload="metadata" poster="../assets/still-budget.jpg" src="../assets/loop-budget.mp4" aria-label="מסך התקציב"></video></div>
       <div class="feat"><div><h3>בקרה</h3><p>חריגות מסומנות לבד: מבקש ומאשר שהם אותו אדם, ספק חדש שקפץ לראש הרשימה, סכום שחוזר על עצמו.</p></div><video class="loop" muted loop playsinline preload="metadata" poster="../assets/still-control.jpg" src="../assets/loop-control.mp4" aria-label="מודול הבקרה"></video></div>
-      <div class="feat"><div><h3>ארכיון</h3><p>כל מסמך נשמר בארכיון דיגיטלי מאושר, עם חתימה דיגיטלית, ומסונכרן להנהלת החשבונות. מוכנים לביקורת בלחיצה.</p></div><video class="loop" muted loop playsinline preload="metadata" poster="../assets/still-archive.jpg" src="../assets/loop-archive.mp4" aria-label="ארכיון דיגיטלי"></video></div>
+      <div class="feat"><div><h3>ארכיון</h3><p>כל מסמך נשמר בארכיון דיגיטלי מאושר, עם חתימה דיגיטלית, ומסונכרן להנהלת החשבונות. ככה זה תקין לניהול ספרים, ומוכן לביקורת בלחיצה.</p></div><video class="loop" muted loop playsinline preload="metadata" poster="../assets/still-archive.jpg" src="../assets/loop-archive.mp4" aria-label="ארכיון דיגיטלי"></video></div>
       <p class="team">זו לא עוד קליטת חשבוניות. הבקרה מתחילה כבר בהזמנה, לא בסוף החודש.</p>
     </section>
 
@@ -238,8 +241,9 @@ details p{margin:0 0 20px;font-size:17px}
         <div class="mod"><b>בקרה</b><span>כפילויות, חריגות ופערים מול ההזמנה מסומנים מראש.</span></div>
         <div class="mod"><b>תובנות</b><span>ניתוח דפוסי ההוצאה, והזדמנויות לחיסכון ולהתייעלות.</span></div>
         <div class="mod"><b>MILO</b><span>עוזר AI שעונה בעברית על כל שאלה על הנתונים.</span></div>
-        <div class="mod"><b>ארכיון דיגיטלי</b><span>ארכיון מאושר עם חתימה דיגיטלית, מוכן לביקורת.</span></div>
+        <div class="mod"><b>ארכיון דיגיטלי</b><span>ארכיון מאושר עם חתימה דיגיטלית, תקין לניהול ספרים ומוכן לביקורת.</span></div>
         <div class="mod"><b>פורטל לספקים</b><span>הספקים עובדים בפורטל ורואים סטטוס, בלי טלפונים.</span></div>
+        <div class="mod mod-new"><b>זיכרון ארגוני <em>חדש</em></b><span>כשעובד עוזב, כל החומרים נשארים בפורטל, במקום אחד. הידע נשאר בארגון.</span></div>
       </div>
     </section>
 
@@ -258,25 +262,25 @@ details p{margin:0 0 20px;font-size:17px}
       <p class="sector" data-sector="edu" hidden>גם לרשתות חינוך: תקציב לפי בעלות, מוסד וסעיף, והצעות המחיר מהספקים מושוות במקום אחד.</p>
       <p class="sector" data-sector="ngo" hidden>עמותות ומלכ"רים, כמו המכון למחקרי ביטחון לאומי, כבר מנהלים דרך Corz את הרכש והחשבוניות.</p>
       <p class="sector" data-sector="re" hidden>חברות ניהול נכסים כמו גב-ים מנהלות דרך Corz רכש של הרבה אתרים במקביל.</p>
-      <div class="erp"><h3>עובד עם המערכת שכבר יש לכם</h3><span>חשבשבת</span><span>פריוריטי</span><span>SAP</span><p>מערכת אחרת? ה-AI קורא את המסמכים עצמם, ובדמו רואים איך זה עובד אצלכם.</p></div>
+      <div class="erp"><h3>עובד עם המערכת שכבר יש לכם</h3><span>חשבשבת</span><span>פריוריטי</span><span>SAP</span><span>או כל מערכת ERP אחרת</span></div>
     </section>
 
     <section class="step">
       <span class="node" aria-hidden="true"></span>
       <h2>שאלות שעולות <span class="pk">לפני דמו</span></h2>
       <details><summary>כמה זה עולה?</summary><p>המחיר תלוי במספר המשתמשים, במודולים ובמערכת הכספים. אחרי הדמו מקבלים הצעה מדויקת לארגון שלכם.</p></details>
-      <details><summary>אנחנו כבר סורקים חשבוניות. מה זה מוסיף?</summary><p>סריקה מכניסה את החשבונית למערכת. Corz מתחיל קודם: ההזמנה נבדקת מול התקציב כשהיא נוצרת, החשבונית מותאמת להזמנה, והבקרות מסמנות כפילויות וחריגות לפני התשלום.</p></details>
+      <details><summary>אנחנו כבר סורקים חשבוניות. מה זה מוסיף?</summary><p>חשבונית סרוקה שנשמרת בתיקייה, בלי חתימה דיגיטלית, לא עומדת בדרישות ניהול הספרים. ב-Corz כל מסמך נשמר בארכיון דיגיטלי מאושר עם חתימה דיגיטלית, כך שהוא תקין גם מבחינה רגולטורית. ומעבר לזה, ההזמנה נבדקת מול התקציב כשהיא נוצרת, והחשבונית מותאמת להזמנה לפני התשלום.</p></details>
       <details><summary>מה מסונכרן למערכת הכספים?</summary><p>הזמנות אפשר לייבא ממערכת ה-ERP או מהנהלת החשבונות, והמסמכים המאושרים מסונכרנים בחזרה. בדמו רואים איך זה עובד מול המערכת שלכם.</p></details>
-      <details><summary>למה אין תקופת ניסיון?</summary><p>פורטל צריך להכיר את הארגון: מבנה התקציב, שרשרת האישורים והספקים. במקום ניסיון יש הטמעה מלווה, ורוב העבודה עלינו.</p></details>
+      <details><summary>אפשר לבנות את זה לבד עם AI?</summary><p>אפשר לבנות כלי. קשה יותר לבנות פורטל שהספקים עובדים בו, עם ארכיון מאושר ובקרות שתוכננו על ידי רואי חשבון. ב-Corz ה-AI כבר יושב על הנתונים שלכם מהיום הראשון.</p></details>
     </section>
 
     <section class="step" id="book">
       <span class="node" aria-hidden="true"></span>
-      <h2>בנו את זה שני רואי חשבון <span class="pk">שהכירו את הקלסרים מבפנים.</span></h2>
+      <h2>הקימו את זה אנשי כספים <span class="pk">שמכירים את הקלסרים מבפנים.</span></h2>
       <div class="book-grid">
         <div>
-          <p>איתמר שושנה ודנה בנימין חסיד הקימו את Corz אחרי שנים של ניהול כספים בארגונים. בדמו איתמר עובר איתכם על התהליך שלכם, לא על מצגת.</p>
-          <div class="person"><span class="avatar" aria-hidden="true">אש</span><span><b>איתמר שושנה, רו"ח</b><small>מייסד שותף, Corz</small></span></div>
+          <p>קבעו פגישה עם מנכ"ל החברה, רו"ח איתמר שושנה. בדמו עוברים איתכם על התהליך שלכם, לא על מצגת.</p>
+          <div class="person"><span class="avatar" aria-hidden="true">אש</span><span><b>איתמר שושנה, רו"ח</b><small>מנכ"ל Corz</small></span></div>
         </div>
         <div id="calendly">היומן של איתמר נטען כאן</div>
       </div>

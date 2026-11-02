@@ -67,40 +67,73 @@
     el.hidden = el.getAttribute('data-sector') !== s;
   });
 
-  // Booking: every [data-book] scrolls to the inline calendar and loads it on first use.
-  var loaded = false;
-  function loadCalendly() {
-    if (loaded) return;
+  // Booking. utm_content carries the token into the Calendly booking itself, so a booking matches its lead.
+  var url = CALENDLY + '?hide_gdpr_banner=1&locale=he&utm_source=corz-lp&utm_medium=' + page + (token ? '&utm_content=' + token : '');
+  var widget = null;
+  function calendlyReady(cb) {
+    if (window.Calendly) return cb();
+    if (!widget) {
+      var css = document.createElement('link');
+      css.rel = 'stylesheet';
+      css.href = 'https://assets.calendly.com/assets/external/widget.css';
+      document.head.appendChild(css);
+      widget = document.createElement('script');
+      widget.src = 'https://assets.calendly.com/assets/external/widget.js';
+      widget.async = true;
+      document.body.appendChild(widget);
+    }
+    widget.addEventListener('load', cb, { once: true });
+  }
+  // Every booking button, and the floating circle, opens Itamar's calendar as a popup over the page.
+  function openBooking(e) {
+    if (e) e.preventDefault();
+    send('booking_click');
+    calendlyReady(function () { window.Calendly.initPopupWidget({ url: url }); });
+  }
+  document.querySelectorAll('[data-book]').forEach(function (a) { a.addEventListener('click', openBooking); });
+
+  // The inline calendar at the bottom of the page loads when it comes near the screen.
+  var inline = false;
+  function loadInline() {
     var box = document.getElementById('calendly');
-    if (!box) return;
-    loaded = true;
-    // utm_content carries the token into the Calendly booking itself, so a booking matches its lead.
-    var url = CALENDLY + '?hide_gdpr_banner=1&locale=he&utm_source=corz-lp&utm_medium=' + page + (token ? '&utm_content=' + token : '');
+    if (inline || !box) return;
+    inline = true;
     box.innerHTML = '';
     var w = document.createElement('div');
-    w.className = 'calendly-inline-widget';
+    w.className = 'cal-inline';
     w.setAttribute('data-url', url);
     w.style.minWidth = '300px';
     w.style.height = '700px';
     box.appendChild(w);
-    var sc = document.createElement('script');
-    sc.src = 'https://assets.calendly.com/assets/external/widget.js';
-    sc.async = true;
-    document.body.appendChild(sc);
+    calendlyReady(function () { window.Calendly.initInlineWidget({ url: url, parentElement: w }); });
   }
-  document.querySelectorAll('[data-book]').forEach(function (a) {
-    a.addEventListener('click', function (e) {
-      e.preventDefault();
-      loadCalendly();
-      document.getElementById('book').scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
-    });
-  });
   if ('IntersectionObserver' in window) {
     var target = document.getElementById('book');
     if (target) new IntersectionObserver(function (en, o) {
-      if (en[0].isIntersecting) { loadCalendly(); o.disconnect(); }
+      if (en[0].isIntersecting) { loadInline(); o.disconnect(); }
     }, { rootMargin: '400px' }).observe(target);
   }
+
+  // Floating circle on the right, always on screen.
+  var st = document.createElement('style');
+  st.textContent = '.book-fab{position:fixed;right:24px;bottom:24px;z-index:50;width:64px;height:64px;border-radius:50%;border:0;cursor:pointer;' +
+    'background:#E0157F;color:#fff;display:grid;place-items:center;box-shadow:0 14px 30px -10px rgba(224,21,127,.75);transition:transform .2s}' +
+    '.book-fab:hover,.book-fab:focus-visible{transform:scale(1.07)}.book-fab svg{width:28px;height:28px}' +
+    '.book-fab span{position:absolute;right:76px;top:50%;translate:0 -50%;white-space:nowrap;background:#1B2951;color:#fff;font:500 15px Rubik,sans-serif;' +
+    'padding:8px 14px;border-radius:10px;opacity:0;pointer-events:none;transition:opacity .2s}' +
+    '.book-fab:hover span,.book-fab:focus-visible span{opacity:1}' +
+    '.book-fab::after{content:"";position:absolute;inset:0;border-radius:50%;border:2px solid #E0157F;animation:fab 2.4s ease-out 3s 2}' +
+    '@keyframes fab{from{transform:scale(1);opacity:.8}to{transform:scale(1.6);opacity:0}}' +
+    '@media (max-width:600px){.book-fab{right:16px;bottom:16px;width:58px;height:58px}}' +
+    '@media (prefers-reduced-motion:reduce){.book-fab::after{animation:none}}';
+  document.head.appendChild(st);
+  var fab = document.createElement('button');
+  fab.type = 'button';
+  fab.className = 'book-fab';
+  fab.setAttribute('aria-label', 'קביעת פגישה עם איתמר');
+  fab.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/></svg><span>קביעת פגישה עם איתמר</span>';
+  fab.addEventListener('click', openBooking);
+  document.body.appendChild(fab);
 
   // Product loops play only while on screen.
   if ('IntersectionObserver' in window) {

@@ -2,7 +2,7 @@
  * The link carries ?t=<opaque token> (never a name or an email) and ?s=<sector>.
  * A visit counts only after a human signal (scroll, pointer, touch, key, or 8 s visible), because mail
  * scanners such as Microsoft Safe Links open every link within seconds and run no interaction.
- * Events: visit, scroll_50, scroll_90, video_25/50/90, booking_opened, booking_scheduled.
+ * Events: visit, scroll_30, scroll_50, scroll_90, video_25/50/90, booking_opened, booking_scheduled.
  * ENDPOINT stays null until the n8n webhook exists; until then events only go to the console.
  */
 (function () {
@@ -39,6 +39,7 @@
   addEventListener('scroll', function () {
     var h = document.documentElement;
     var p = (h.scrollTop + innerHeight) / h.scrollHeight;
+    if (p > 0.3) send('scroll_30');
     if (p > 0.5) send('scroll_50');
     if (p > 0.9) send('scroll_90');
   }, { passive: true });

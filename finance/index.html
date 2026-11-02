@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="he" dir="rtl" data-page="finance">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Corz | כל חשבונית מותאמת להזמנה לפני התשלום</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#1B2951; --pink:#D94A8E; --magenta:#E0157F; --blush:#FDF1F7; --blush-2:#F9DDEB;
+  --ink:#1B2951; --text:#2E3858; --muted:#68718C; --line:#ECDDE6; --white:#fff;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:Rubik,system-ui,sans-serif;font-size:18px;line-height:1.65;color:var(--text);
+  background:linear-gradient(180deg,#FFF7FB 0%,#FFFFFF 22%,#FFF6FA 55%,#FFFFFF 100%);-webkit-font-smoothing:antialiased}
+img,video{max-width:100%;display:block}
+:focus-visible{outline:3px solid var(--magenta);outline-offset:3px;border-radius:6px}
+.wrap{width:min(1120px,100% - 40px);margin-inline:auto}
+.logo{display:inline-block;width:104px;aspect-ratio:500/243;background:var(--navy);-webkit-mask:url(../assets/logo-white.webp) center/contain no-repeat;mask:url(../assets/logo-white.webp) center/contain no-repeat;position:relative}
+.logo-u{display:inline-flex;flex-direction:column;gap:6px}
+.logo-u::after{content:"";height:3px;width:56px;background:var(--magenta);border-radius:3px;align-self:center}
+.btn{display:inline-flex;align-items:center;gap:10px;background:var(--magenta);color:#fff;text-decoration:none;font-weight:600;font-size:17px;padding:15px 30px;border-radius:999px;box-shadow:0 12px 26px -12px rgba(224,21,127,.7);transition:transform .2s,box-shadow .2s}
+.btn:hover{transform:translateY(-1px);box-shadow:0 16px 30px -12px rgba(224,21,127,.8)}
+.btn svg{width:18px;height:18px}
+.pk{color:var(--magenta)}
+
+.top{display:flex;justify-content:space-between;align-items:center;padding:22px 0}
+.top a.link{color:var(--navy);font-weight:500;text-decoration:none;border-bottom:2px solid var(--magenta);padding-bottom:2px}
+
+/* hero, in the video's own language */
+.hero{text-align:center;padding:50px 0 30px}
+.hero h1{font-size:clamp(38px,5.6vw,72px);line-height:1.1;margin:0 auto 22px;font-weight:800;color:var(--navy);max-width:15em;letter-spacing:-.01em}
+.hero .sub{max-width:36em;margin:0 auto 32px;font-size:20px;color:var(--text)}
+.hero .note{display:block;margin-top:14px;color:var(--muted);font-size:15px}
+.stack{position:relative;height:430px;margin:56px auto 0;max-width:980px}
+.card{position:absolute;border-radius:18px;overflow:hidden;background:#fff;box-shadow:0 30px 60px -28px rgba(27,41,81,.45),0 0 0 1px rgba(27,41,81,.05)}
+.card img{width:100%}
+.c1{width:56%;right:22%;top:0;z-index:3}
+.c2{width:40%;right:-1%;top:90px;z-index:2;transform:rotate(2.5deg)}
+.c3{width:40%;left:-1%;top:110px;z-index:2;transform:rotate(-2.5deg)}
+.stack .card{opacity:0;translate:0 24px;transition:opacity .7s,translate .7s}
+.stack.on .card{opacity:1;translate:0 0}
+.stack.on .c2{transition-delay:.15s}.stack.on .c3{transition-delay:.3s}
+
+/* the rail: the pink line from the video, drawn as you scroll */
+.story{position:relative;padding:90px 0 40px}
+.rail{position:absolute;top:0;bottom:0;right:max(20px,calc((100% - 1120px)/2));width:4px;border-radius:4px;background:var(--blush-2)}
+.rail i{position:absolute;top:0;right:0;width:4px;height:var(--p,0%);background:var(--magenta);border-radius:4px}
+.step{position:relative;padding-right:64px;margin-bottom:110px}
+.node{position:absolute;right:-13px;top:6px;width:30px;height:30px;border-radius:50%;background:#fff;border:5px solid var(--blush-2);transition:border-color .3s,box-shadow .3s}
+.step.lit .node{border-color:var(--magenta);box-shadow:0 0 0 7px rgba(224,21,127,.12)}
+.step h2{font-size:clamp(30px,3.8vw,46px);line-height:1.15;margin:0 0 26px;color:var(--navy);font-weight:700}
+.step .inner{margin-right:-64px;padding-right:64px}
+
+.pains{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.pains p{margin:0;background:#fff;border-radius:18px;padding:24px 24px 26px;font-size:20px;line-height:1.45;color:var(--navy);font-weight:500;box-shadow:0 18px 40px -26px rgba(27,41,81,.35)}
+.pains p::before{content:"";display:block;width:28px;height:4px;border-radius:4px;background:var(--magenta);margin-bottom:16px}
+
+.feat{display:grid;grid-template-columns:1fr 1.25fr;gap:44px;align-items:center;margin-bottom:56px}
+.feat:last-of-type{margin-bottom:0}
+.feat h3{font-size:28px;margin:0 0 10px;color:var(--navy);font-weight:700}
+.feat p{margin:0;font-size:18px}
+.feat video{border-radius:18px;width:100%;aspect-ratio:1072/560;object-fit:cover;background:#fdf2f8;box-shadow:0 26px 50px -30px rgba(27,41,81,.45),0 0 0 1px rgba(27,41,81,.05)}
+.team{font-size:22px;color:var(--navy);font-weight:500;margin:46px 0 0}
+
+.nums{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.nums div{background:var(--navy);color:#fff;border-radius:22px;padding:34px 30px}
+.nums b{display:block;font-size:clamp(42px,5.4vw,68px);line-height:1;font-weight:800;margin-bottom:10px}
+.nums span{color:#C8CFE5;font-size:19px}
+
+.names{display:flex;flex-wrap:wrap;gap:12px;margin:0 0 26px;padding:0;list-style:none}
+.names li{background:#fff;border-radius:999px;padding:12px 22px;font-weight:600;color:var(--navy);box-shadow:0 10px 24px -18px rgba(27,41,81,.5)}
+.quote{font-size:21px;color:var(--navy);margin:0 0 22px;max-width:36em}
+.trust{display:flex;gap:10px;flex-wrap:wrap}
+.trust span{border:1.5px solid var(--navy);border-radius:999px;padding:6px 16px;font-size:15px;font-weight:600;color:var(--navy)}
+.sector{margin:24px 0 0;background:var(--blush);border-radius:16px;padding:16px 20px;color:var(--navy);font-size:19px}
+.erp{margin-top:40px;background:#fff;border-radius:20px;padding:24px 26px;display:flex;gap:16px 30px;flex-wrap:wrap;align-items:center;box-shadow:0 18px 40px -28px rgba(27,41,81,.4)}
+.erp h3{margin:0;font-size:20px;color:var(--navy)}
+.erp span{font-weight:700;color:var(--navy);background:var(--blush);padding:6px 14px;border-radius:10px}
+.erp p{flex-basis:100%;margin:0;color:var(--muted);font-size:16px}
+
+details{background:#fff;border-radius:16px;margin-bottom:12px;padding:0 22px;box-shadow:0 12px 30px -24px rgba(27,41,81,.4)}
+summary{cursor:pointer;list-style:none;padding:20px 0;font-size:19px;font-weight:600;color:var(--navy);display:flex;justify-content:space-between;gap:16px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";color:var(--magenta);font-size:26px;line-height:1;font-weight:400}
+details[open] summary::after{content:"−"}
+details p{margin:0 0 20px;font-size:17px}
+
+.book-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:44px;align-items:start}
+.book-grid p{font-size:19px;margin:0 0 24px}
+.person{display:flex;gap:14px;align-items:center}
+.avatar{width:62px;height:62px;border-radius:50%;background:var(--navy);color:#fff;display:grid;place-items:center;font-weight:700;font-size:21px;box-shadow:0 0 0 4px #fff,0 0 0 7px var(--magenta)}
+.person b{display:block;color:var(--navy)}
+.person small{color:var(--muted);font-size:15px}
+#calendly{background:#fff;border-radius:22px;min-height:700px;display:grid;place-items:center;color:var(--muted);overflow:hidden;box-shadow:0 26px 60px -34px rgba(27,41,81,.5)}
+.foot{padding:30px 0 40px;text-align:center;color:var(--muted);font-size:14px}
+
+/* the ledger: orders checked against the budget line */
+.ledger{background:#fff;border:1px solid #EFE3EA;border-radius:20px;box-shadow:0 30px 60px -30px rgba(27,41,81,.35);overflow:hidden}
+.ledger header{display:flex;justify-content:space-between;align-items:baseline;padding:20px 24px 14px;border-bottom:1px solid #EFE3EA}
+.ledger header b{font-size:17px;color:var(--navy)}
+.ledger header small{color:#68718C;font-size:14px}
+.budget{padding:16px 24px 18px;border-bottom:1px solid #EFE3EA}
+.budget .row{display:flex;justify-content:space-between;font-size:14px;color:#68718C}
+.budget .row strong{color:var(--navy);font-size:22px;font-weight:600}
+.bar{height:10px;border-radius:99px;background:#F6F2F6;margin-top:10px;overflow:hidden}
+.bar i{display:block;height:100%;width:var(--w,58%);background:var(--navy);border-radius:99px;transition:width 1s cubic-bezier(.2,.7,.2,1)}
+.orders{list-style:none;margin:0;padding:6px 0}
+.orders li{display:grid;grid-template-columns:1fr auto auto;gap:14px;align-items:center;padding:12px 24px;font-size:15px;opacity:0;transform:translateY(8px)}
+.orders li.in{opacity:1;transform:none;transition:opacity .45s,transform .45s}
+.orders .who{color:#1B2951}
+.orders .who small{display:block;color:#68718C;font-size:13px}
+.orders .amt{font-variant-numeric:tabular-nums;font-weight:500}
+.tag{font-size:13px;font-weight:500;padding:4px 10px;border-radius:99px;white-space:nowrap}
+.tag.ok{background:#E5F4EE;color:#1E8E62}
+.tag.stop{background:#FCE6F1;color:#B02F6C}
+.orders li.flag{background:linear-gradient(90deg,transparent,#FCE6F1)}
+.ledger footer{padding:14px 24px;font-size:14px;color:#68718C;border-top:1px solid #EFE3EA;background:#F6F2F6}
+
+
+.visual{position:relative;max-width:620px;margin:56px auto 0;text-align:right}
+.visual .ledger{position:relative;z-index:2}
+.robot{position:absolute;z-index:3;width:200px;left:-176px;bottom:-30px;filter:drop-shadow(0 18px 22px rgba(27,41,81,.25));opacity:0;translate:0 16px;transition:opacity .6s 2.9s,translate .6s 2.9s}
+.visual.on .robot{opacity:1;translate:0 0}
+.bubble{position:absolute;z-index:3;left:-214px;bottom:262px;background:#fff;color:#1B2951;border-radius:16px;padding:10px 14px;font-size:15px;font-weight:500;box-shadow:0 14px 30px -18px rgba(27,41,81,.5);max-width:190px;opacity:0;transition:opacity .5s 3.4s}
+.visual.on .bubble{opacity:1}
+.bubble::after{content:"";position:absolute;bottom:-7px;left:46%;width:14px;height:14px;background:#fff;transform:rotate(45deg)}
+.milo-h{display:flex;align-items:center;gap:10px}
+.milo-h img{width:46px}
+@media (max-width:1000px){.robot{width:120px;left:-20px;bottom:-40px}.bubble{display:none}}
+
+.hero h1 .pk{display:block}
+.visual.wide{max-width:800px}
+.player{position:relative;z-index:2;border-radius:20px;overflow:hidden;background:#1B2951;box-shadow:0 30px 60px -28px rgba(27,41,81,.5)}
+.player video{width:100%;aspect-ratio:16/9;display:block}
+.robot,.bubble{pointer-events:none}
+.visual.wide .robot{left:-215px;bottom:-30px}
+.visual.wide .bubble{left:-250px;bottom:250px}
+.play{position:absolute;inset:0;margin:auto;width:92px;height:92px;border-radius:50%;border:0;background:var(--magenta);color:#fff;cursor:pointer;box-shadow:0 18px 40px -12px rgba(224,21,127,.8);display:grid;place-items:center;transition:transform .2s}
+.play:hover{transform:scale(1.06)}
+.play svg{width:34px;height:34px;margin-left:5px}
+.player.playing .play{display:none}
+@media (max-width:1180px){.visual.wide .robot,.visual.wide .bubble{display:none}}
+
+@media (max-width:900px){.visual{margin-top:36px}.robot{display:none}}
+@media (prefers-reduced-motion:reduce){.robot,.bubble{opacity:1;translate:none}.orders li{opacity:1;transform:none}}
+
+@media (max-width:900px){
+  body{font-size:17px}
+  .stack{height:auto;display:grid;gap:14px;margin-top:36px}
+  .card{position:static;width:100%!important;transform:none!important}
+  .c2,.c3{display:none}
+  .pains,.feat,.nums,.book-grid{grid-template-columns:1fr;gap:22px}
+  .step{padding-right:40px;margin-bottom:80px}
+  .node{right:-13px}
+  .top a.link{display:none}
+  .hero{padding:24px 0 10px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}.stack .card{opacity:1;translate:none}}
+</style>
+</head>
+<body>
+<div class="wrap top">
+  <span class="logo-u"><span class="logo" role="img" aria-label="Corz"></span></span>
+  <a class="link" href="#book" data-book>קביעת דמו</a>
+</div>
+
+<main>
+<section class="wrap hero">
+  <h1>כל חשבונית מותאמת להזמנה. <span class="pk">לפני שהיא מגיעה לתשלום.</span></h1>
+  <p class="sub">Corz הוא פורטל ספקים מבוסס AI. ספקים מגישים חשבוניות בפורטל או במייל, ה-AI קולט ומשייך כל אחת להזמנה, והבקרות מסמנות חריגות לבד. כל הזמנה נבדקת מול סעיף התקציב כבר כשהיא נוצרת, והכול מסונכרן להנהלת החשבונות.</p>
+  <a class="btn" href="#book" data-book><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>קביעת דמו עם איתמר</a>
+  <span class="note">30 דקות, על התהליכים והמספרים שלכם</span>
+  <div class="visual" id="visual">
+<div class="ledger" aria-label="דוגמה: חשבוניות מותאמות להזמנות" data-start='["0%", "0 מתוך 4"]' data-steps='[["25%", "1 מתוך 4"], ["50%", "2 מתוך 4"], ["75%", "3 מתוך 4"], ["75%", "3 מתוך 4"]]'>
+    <header><b>חשבוניות שנכנסו היום</b><small>פורטל ומייל</small></header>
+    <div class="budget">
+      <div class="row"><span>הותאמו להזמנה</span><strong id="used">3 מתוך 4</strong></div>
+      <div class="bar"><i id="bar" style="--w:75%"></i></div>
+    </div>
+    <ol class="orders">
+      <li><span class="who">רהיטי לביא<small>חשבונית 8796, מול הזמנה 0188</small></span><span class="amt">₪47,200</span><span class="tag ok">הותאמה</span></li>
+      <li><span class="who">שגב ציוד<small>חשבונית 8801, מול הזמנה 0190</small></span><span class="amt">₪42,000</span><span class="tag ok">הותאמה</span></li>
+      <li><span class="who">אורן פתרונות<small>חשבונית 8807, מול הזמנה 0192</small></span><span class="amt">₪40,120</span><span class="tag ok">הותאמה</span></li>
+      <li class="flag"><span class="who">שגב ציוד<small>חשבונית 8812, גבוהה ב-₪1,850 מההזמנה</small></span><span class="amt">₪43,850</span><span class="tag stop">נעצרה לבדיקה</span></li>
+    </ol>
+    <footer>כל חשבונית מותאמת להזמנה לפני שהיא עוברת לתשלום</footer>
+  </div>
+    <img class="robot" src="../assets/milo.png" alt="MILO, העוזר של Corz">
+    <span class="bubble">חשבונית 8812 גבוהה ב-₪1,850 מההזמנה. עצרתי אותה לבדיקה.</span>
+  </div>
+</section>
+
+<div class="story" id="story">
+  <div class="rail" aria-hidden="true"><i id="railfill"></i></div>
+  <div class="wrap">
+
+    <section class="step">
+      <span class="node" aria-hidden="true"></span>
+      <h2>נשמע <span class="pk">מוכר?</span></h2>
+      <div class="pains">
+        <p>חשבוניות מגיעות במייל, בוואטסאפ ובדואר, ומישהו מקליד אותן ידנית.</p>
+        <p>חריגה מהתקציב מתגלה רק אחרי שההזמנה כבר יצאה לספק.</p>
+        <p>ההתאמה בין הזמנה, קבלת סחורה וחשבונית נעשית ידנית, שורה אחרי שורה.</p>
+      </div>
+    </section>
+
+    <section class="step">
+      <span class="node" aria-hidden="true"></span>
+      <h2>מה רואים <span class="pk">ב-Corz</span></h2>
+      <div class="feat"><div><h3>חשבוניות</h3><p>ספקים מגישים בפורטל או שולחים למייל ייעודי. ה-AI קורא את החשבונית, משייך אותה להזמנה ומעביר לאישור, בלי הקלדה.</p></div><video class="loop" muted loop playsinline preload="metadata" poster="../assets/still-invoices.jpg" src="../assets/loop-invoices.mp4" aria-label="הגשות ספקים"></video></div>
+      <div class="feat"><div><h3>תקציב</h3><p>כל הזמנה נבדקת מול סעיף התקציב כבר כשהיא נוצרת. עץ סעיפים ודוח ביצוע מראים בכל רגע כמה נוצל וכמה באמת פנוי.</p></div><video class="loop" muted loop playsinline preload="metadata" poster="../assets/still-budget.jpg" src="../assets/loop-budget.mp4" aria-label="מסך התקציב"></video></div>
+      <div class="feat"><div><h3>בקרה</h3><p>חריגות מסומנות לבד: מבקש ומאשר שהם אותו אדם, ספק חדש שקפץ לראש הרשימה, סכום שחוזר על עצמו.</p></div><video class="loop" muted loop playsinline preload="metadata" poster="../assets/still-control.jpg" src="../assets/loop-control.mp4" aria-label="מודול הבקרה"></video></div>
+      <div class="feat"><div><h3>ארכיון</h3><p>כל מסמך נשמר בארכיון דיגיטלי מאושר, עם חתימה דיגיטלית, ומסונכרן להנהלת החשבונות. מוכנים לביקורת בלחיצה.</p></div><video class="loop" muted loop playsinline preload="metadata" poster="../assets/still-archive.jpg" src="../assets/loop-archive.mp4" aria-label="ארכיון דיגיטלי"></video></div>
+      <p class="team">זו לא עוד קליטת חשבוניות. הבקרה מתחילה כבר בהזמנה, לא בסוף החודש.</p>
+    </section>
+
+    <section class="step">
+      <span class="node" aria-hidden="true"></span>
+      <h2>מה זה <span class="pk">עושה למספרים</span></h2>
+      <div class="nums"><div><b>עד 80%</b><span>פחות זמן עבודה על התהליך</span></div><div><b>3 דקות</b><span>לאישור שלקח פעם יומיים</span></div></div>
+    </section>
+
+    <section class="step">
+      <span class="node" aria-hidden="true"></span>
+      <h2>ארגונים שכבר <span class="pk">עובדים עם Corz</span></h2>
+      <ul class="names"><li>גב-ים</li><li>המכון למחקרי ביטחון לאומי</li><li>קרן הקולנוע הישראלית</li><li>הקואליציה הישראלית לטראומה</li></ul>
+      <p class="quote">הקואליציה הישראלית לטראומה עובדת עם Corz יותר משנתיים, עם יותר מ-700 מטפלים בפורטל.</p>
+      <div class="trust"><span>ISO 27001</span><span>ארכיון דיגיטלי מאושר</span></div>
+      <p class="sector" data-sector="edu" hidden>גם לרשתות חינוך: תקציב לפי בעלות, מוסד וסעיף, והצעות המחיר מהספקים מושוות במקום אחד.</p>
+      <p class="sector" data-sector="ngo" hidden>עמותות ומלכ"רים, כמו המכון למחקרי ביטחון לאומי, כבר מנהלים דרך Corz את הרכש והחשבוניות.</p>
+      <p class="sector" data-sector="re" hidden>חברות ניהול נכסים כמו גב-ים מנהלות דרך Corz רכש של הרבה אתרים במקביל.</p>
+      <div class="erp"><h3>עובד עם המערכת שכבר יש לכם</h3><span>חשבשבת</span><span>פריוריטי</span><span>SAP</span><p>מערכת אחרת? ה-AI קורא את המסמכים עצמם, ובדמו רואים איך זה עובד אצלכם.</p></div>
+    </section>
+
+    <section class="step">
+      <span class="node" aria-hidden="true"></span>
+      <h2>שאלות שעולות <span class="pk">לפני דמו</span></h2>
+      <details><summary>כמה זה עולה?</summary><p>המחיר תלוי במספר המשתמשים, במודולים ובמערכת הכספים. אחרי הדמו מקבלים הצעה מדויקת לארגון שלכם.</p></details>
+      <details><summary>אנחנו כבר סורקים חשבוניות. מה זה מוסיף?</summary><p>סריקה מכניסה את החשבונית למערכת. Corz מתחיל קודם: ההזמנה נבדקת מול התקציב כשהיא נוצרת, החשבונית מותאמת להזמנה, והבקרות מסמנות כפילויות וחריגות לפני התשלום.</p></details>
+      <details><summary>מה מסונכרן למערכת הכספים?</summary><p>הזמנות אפשר לייבא ממערכת ה-ERP או מהנהלת החשבונות, והמסמכים המאושרים מסונכרנים בחזרה. בדמו רואים איך זה עובד מול המערכת שלכם.</p></details>
+      <details><summary>למה אין תקופת ניסיון?</summary><p>פורטל צריך להכיר את הארגון: מבנה התקציב, שרשרת האישורים והספקים. במקום ניסיון יש הטמעה מלווה, ורוב העבודה עלינו.</p></details>
+    </section>
+
+    <section class="step" id="book">
+      <span class="node" aria-hidden="true"></span>
+      <h2>בנו את זה שני רואי חשבון <span class="pk">שהכירו את הקלסרים מבפנים.</span></h2>
+      <div class="book-grid">
+        <div>
+          <p>איתמר שושנה ודנה בנימין חסיד הקימו את Corz אחרי שנים של ניהול כספים בארגונים. בדמו איתמר עובר איתכם על התהליך שלכם, לא על מצגת.</p>
+          <div class="person"><span class="avatar" aria-hidden="true">אש</span><span><b>איתמר שושנה, רו"ח</b><small>מייסד שותף, Corz</small></span></div>
+        </div>
+        <div id="calendly">היומן של איתמר נטען כאן</div>
+      </div>
+    </section>
+  </div>
+</div>
+</main>
+<footer class="foot"><span class="logo-u"><span class="logo" role="img" aria-label="Corz"></span></span></footer>
+
+<script src="../shared/track.js"></script>
+<script>
+/* The big play button starts the video and gets out of the way. */
+(function(){
+  var pl=document.querySelector('.player'); if(!pl) return;
+  var v=pl.querySelector('video'), b=pl.querySelector('.play');
+  b.addEventListener('click',function(){pl.classList.add('playing');v.play();});
+  v.addEventListener('play',function(){pl.classList.add('playing')});
+})();
+/* One orchestrated moment: the rows arrive, the bar moves, the last one is stopped. */
+(function(){
+  var led=document.querySelector('.ledger'); if(!led) return;
+  var items=[].slice.call(led.querySelectorAll('.orders li'));
+  var bar=document.getElementById('bar'), used=document.getElementById('used');
+  var start=JSON.parse(led.dataset.start), steps=JSON.parse(led.dataset.steps), last=steps[steps.length-1];
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches){items.forEach(function(li){li.classList.add('in')});return;}
+  bar.style.setProperty('--w',start[0]);used.textContent=start[1];
+  items.forEach(function(li,i){setTimeout(function(){li.classList.add('in');bar.style.setProperty('--w',steps[i][0]);used.textContent=steps[i][1];},500+i*700);});
+})();
+
+(function(){
+  requestAnimationFrame(function(){document.getElementById('visual').classList.add('on')});
+  var story=document.getElementById('story'),fill=document.getElementById('railfill');
+  var steps=[].slice.call(document.querySelectorAll('.step'));
+  function upd(){
+    var r=story.getBoundingClientRect(),mid=innerHeight*0.55;
+    var p=Math.max(0,Math.min(1,(mid-r.top)/r.height));
+    fill.style.setProperty('--p',(p*100).toFixed(1)+'%');
+    steps.forEach(function(s){s.classList.toggle('lit',s.getBoundingClientRect().top<mid)});
+  }
+  addEventListener('scroll',upd,{passive:true});addEventListener('resize',upd);upd();
+})();
+</script>
+</body>
+</html>

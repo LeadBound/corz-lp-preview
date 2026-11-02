@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Corz: דפי נחיתה לאישור</title>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+body{margin:0;font-family:Rubik,sans-serif;background:linear-gradient(180deg,#FFF7FB,#fff);color:#1B2951}
+.wrap{width:min(1200px,100% - 40px);margin:0 auto;padding:44px 0 60px}
+.logo{display:block;width:110px;aspect-ratio:500/243;background:#1B2951;-webkit-mask:url(assets/logo-white.webp) center/contain no-repeat;mask:url(assets/logo-white.webp) center/contain no-repeat;margin-bottom:28px}
+h1{font-size:clamp(28px,4vw,42px);margin:0 0 8px;font-weight:800}
+p.lead{color:#68718C;font-size:18px;margin:0 0 34px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+a{display:block;background:#fff;border-radius:18px;overflow:hidden;text-decoration:none;color:inherit;box-shadow:0 20px 40px -26px rgba(27,41,81,.45);transition:transform .2s}
+a:hover{transform:translateY(-3px)}
+a:focus-visible{outline:3px solid #E0157F;outline-offset:4px}
+a img{width:100%;aspect-ratio:1440/900;object-fit:cover;object-position:top;display:block;border-bottom:1px solid #EFE3EA}
+a div{padding:16px 20px 20px}
+h2{margin:0 0 4px;font-size:22px}
+a p{margin:0;color:#3A4466;font-size:16px}
+@media (max-width:900px){.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <span class="logo" role="img" aria-label="Corz"></span>
+  <h1>דפי נחיתה לפי תפקיד</h1>
+  <p class="lead">טיוטה לאישור. שלושה דפים, אחד לכל קהל.</p>
+  <div class="grid">
+    <a href="management/"><img src="img/management.jpg" alt=""><div><h2>הנהלה</h2><p>מנכ"לים, בעלים ומנהלים כלליים</p></div></a>
+    <a href="finance/"><img src="img/finance.jpg" alt=""><div><h2>כספים</h2><p>סמנכ"לי כספים, חשבים ומנהלי כספים</p></div></a>
+    <a href="procurement/"><img src="img/procurement.jpg" alt=""><div><h2>רכש</h2><p>מנהלי רכש וסמנכ"לי תפעול</p></div></a>
+  </div>
+</div>
+</body>
+</html>

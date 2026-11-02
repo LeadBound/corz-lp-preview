@@ -6,7 +6,7 @@
  * ENDPOINT stays null until the n8n webhook exists; until then events only go to the console.
  */
 (function () {
-  var ENDPOINT = null; // e.g. 'https://bennivbee.app.n8n.cloud/webhook/corz-lp'
+  var ENDPOINT = 'https://bennivbee.app.n8n.cloud/webhook/corz-lp'; // n8n: Corz · Landing page tracking (uhXN0RhVwQLnfICI)
   var CALENDLY = 'https://calendly.com/itamar-corz/meet-with-me';
   var q = new URLSearchParams(location.search);
   var token = (q.get('t') || '').replace(/[^A-Za-z0-9_-]/g, '').slice(0, 24) || null;
@@ -21,7 +21,8 @@
     var body = { event: name, t: token, page: page, s: q.get('s'), at: new Date().toISOString(), extra: extra || null };
     if (!human && name !== 'visit') { queue.push(body); return; }
     if (!ENDPOINT) { console.info('[corz-track]', body); return; }
-    try { navigator.sendBeacon(ENDPOINT, JSON.stringify(body)); } catch (e) { /* tracking never breaks the page */ }
+    // A form body is CORS-safelisted, so the beacon needs no preflight; n8n reads it as body.d.
+    try { navigator.sendBeacon(ENDPOINT, new URLSearchParams({ d: JSON.stringify(body) })); } catch (e) { /* tracking never breaks the page */ }
   }
 
   function becameHuman() {

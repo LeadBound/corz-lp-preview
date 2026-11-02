@@ -132,6 +132,15 @@ details p{margin:0 0 20px;font-size:17px}
 .milo-h img{width:46px}
 @media (max-width:1000px){.robot{width:120px;left:-20px;bottom:-40px}.bubble{display:none}}
 
+.mods-lead{margin:-10px 0 26px;font-size:18px;color:var(--muted)}
+.mods{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.mod{background:#fff;border-radius:16px;padding:18px 20px;border:1.5px solid transparent;box-shadow:0 14px 34px -26px rgba(27,41,81,.45)}
+.mod b{display:flex;align-items:center;gap:8px;color:var(--navy);font-size:18px;margin-bottom:4px}
+.mod span{font-size:15.5px;line-height:1.5;color:var(--muted)}
+.mod.here{border-color:var(--magenta)}
+.mod.here b::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--magenta);flex:none}
+@media (max-width:900px){.mods{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){.mods{grid-template-columns:1fr}}
 .hero h1 .pk{display:block}
 .visual.wide{max-width:800px}
 .player{position:relative;z-index:2;border-radius:20px;overflow:hidden;background:#1B2951;box-shadow:0 30px 60px -28px rgba(27,41,81,.5)}
@@ -203,6 +212,23 @@ details p{margin:0 0 20px;font-size:17px}
       <div class="feat"><div><h3>מהצעה להזמנה</h3><p>ההצעה שנבחרה הופכת להזמנה ועוברת את שרשרת האישורים אוטומטית. הספק מקבל תשובה בפורטל.</p></div><video class="loop" muted loop playsinline preload="metadata" poster="../assets/still-approve.jpg" src="../assets/loop-approve.mp4" aria-label="שרשרת אישורים"></video></div>
       <div class="feat"><div><h3>ספקים בפורטל</h3><p>הספקים מגישים חשבוניות ורואים את הסטטוס בפורטל, אז הם מפסיקים להתקשר לשאול.</p></div><video class="loop" muted loop playsinline preload="metadata" poster="../assets/still-invoices.jpg" src="../assets/loop-invoices.mp4" aria-label="הגשות ספקים"></video></div>
       <p class="team">הנוהל נשמר לבד: כמה הצעות צריך בכל סכום, מי מאשר, ומה כבר אושר.</p>
+    </section>
+
+    <section class="step">
+      <span class="node" aria-hidden="true"></span>
+      <h2>הכול <span class="pk">בפורטל אחד</span></h2>
+      <p class="mods-lead">מהבקשה להצעת מחיר ועד מערכת הכספים. המודולים המסומנים הם אלה שראיתם למעלה.</p>
+      <div class="mods">
+        <div class="mod here"><b>הצעות מחיר</b><span>בקשה אחת לכמה ספקים, וה-AI מסכם את הפערים וממליץ.</span></div>
+        <div class="mod here"><b>הזמנות</b><span>נוצרות בפורטל או מיובאות מה-ERP, ונבדקות מול התקציב.</span></div>
+        <div class="mod"><b>תקציב</b><span>עץ סעיפים, בקרת חריגות ודוח ביצוע בזמן אמת.</span></div>
+        <div class="mod"><b>חשבוניות</b><span>ספקים מגישים בפורטל או במייל, וה-AI משייך כל חשבונית להזמנה.</span></div>
+        <div class="mod"><b>בקרה</b><span>כפילויות, חריגות ופערים מול ההזמנה מסומנים מראש.</span></div>
+        <div class="mod"><b>תובנות</b><span>ניתוח דפוסי ההוצאה, והזדמנויות לחיסכון ולהתייעלות.</span></div>
+        <div class="mod"><b>MILO</b><span>עוזר AI שעונה בעברית על כל שאלה על הנתונים.</span></div>
+        <div class="mod"><b>ארכיון דיגיטלי</b><span>ארכיון מאושר עם חתימה דיגיטלית, מוכן לביקורת.</span></div>
+        <div class="mod here"><b>פורטל לספקים</b><span>הספקים עובדים בפורטל ורואים סטטוס, בלי טלפונים.</span></div>
+      </div>
     </section>
 
     <section class="step">

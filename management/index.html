@@ -95,7 +95,10 @@ details p{margin:0 0 20px;font-size:17px}
 .avatar{width:62px;height:62px;border-radius:50%;background:var(--navy);color:#fff;display:grid;place-items:center;font-weight:700;font-size:21px;box-shadow:0 0 0 4px #fff,0 0 0 7px var(--magenta)}
 .person b{display:block;color:var(--navy)}
 .person small{color:var(--muted);font-size:15px}
-#calendly{background:#fff;border-radius:22px;min-height:700px;display:grid;place-items:center;color:var(--muted);overflow:hidden;box-shadow:0 26px 60px -34px rgba(27,41,81,.5)}
+#calendly{background:#fff;border-radius:22px;padding:34px 30px;display:grid;justify-items:start;gap:10px;box-shadow:0 26px 60px -34px rgba(27,41,81,.5)}
+#calendly img{width:84px;margin-bottom:4px}
+#calendly b{font-size:24px;color:var(--navy)}
+#calendly span{color:var(--muted);font-size:17px;margin-bottom:12px}
 .foot{padding:30px 0 40px;text-align:center;color:var(--muted);font-size:14px}
 
 /* the ledger: orders checked against the budget line */
@@ -200,7 +203,7 @@ details p{margin:0 0 20px;font-size:17px}
     </ol>
     <footer>כל הזמנה נבדקת מול סעיף התקציב כבר כשהיא נוצרת</footer>
   </div>
-    <img class="robot" src="../assets/milo.png" alt="MILO, העוזר של Corz">
+    <img class="robot" src="../assets/milo.webp" alt="MILO, העוזר של Corz">
     <span class="bubble">הזמנה 0193 נעצרה. המבקש הוא גם המאשר.</span>
   </div>
 </section>
@@ -223,7 +226,7 @@ details p{margin:0 0 20px;font-size:17px}
       <span class="node" aria-hidden="true"></span>
       <h2>מה רואים <span class="pk">ב-Corz</span></h2>
       <div class="feat"><div><h3>תובנות</h3><p>הפורטל קורא את הרכש שלכם ומסמן מה דורש טיפול: ספק שמרכז כמעט את כל ההוצאה בקטגוריה, סעיף שמתקרב לתקרה, קצב הוצאה שעולה.</p></div><video class="loop" muted loop playsinline preload="metadata" poster="../assets/still-insights.jpg" src="../assets/loop-insights.mp4" aria-label="מסך התובנות"></video></div>
-      <div class="feat"><div><h3 class="milo-h"><img src="../assets/milo.png" alt="" aria-hidden="true">MILO</h3><p>שואלים בעברית ומקבלים תשובה מהנתונים: כמה הזמנות מחכות לאישור, כמה נשאר בסעיף, אילו חשבוניות עוד פתוחות.</p></div><video class="loop" muted loop playsinline preload="metadata" poster="../assets/still-milo.jpg" src="../assets/loop-milo.mp4" aria-label="MILO עונה על שאלה"></video></div>
+      <div class="feat"><div><h3 class="milo-h"><img src="../assets/milo.webp" alt="" aria-hidden="true">MILO</h3><p>שואלים בעברית ומקבלים תשובה מהנתונים: כמה הזמנות מחכות לאישור, כמה נשאר בסעיף, אילו חשבוניות עוד פתוחות.</p></div><video class="loop" muted loop playsinline preload="metadata" poster="../assets/still-milo.jpg" src="../assets/loop-milo.mp4" aria-label="MILO עונה על שאלה"></video></div>
       <div class="feat"><div><h3>תקציב</h3><p>כל הזמנה נבדקת מול סעיף התקציב כבר כשהיא נוצרת. רואים בכל רגע כמה נוצל וכמה באמת פנוי.</p></div><video class="loop" muted loop playsinline preload="metadata" poster="../assets/still-budget.jpg" src="../assets/loop-budget.mp4" aria-label="מסך התקציב"></video></div>
       <div class="feat"><div><h3>בקרה</h3><p>חריגות מסומנות לבד: מבקש ומאשר שהם אותו אדם, ספק חדש שקפץ לראש הרשימה, סכום שחוזר על עצמו.</p></div><video class="loop" muted loop playsinline preload="metadata" poster="../assets/still-control.jpg" src="../assets/loop-control.mp4" aria-label="מודול הבקרה"></video></div>
       <p class="team">אותו צוות, אותם אנשים. רק שהעבודה הידנית יורדת להם מהשולחן.</p>
@@ -281,7 +284,7 @@ details p{margin:0 0 20px;font-size:17px}
           <p>קבעו פגישה עם מנכ"ל החברה, רו"ח איתמר שושנה. בדמו עוברים איתכם על התהליך שלכם, לא על מצגת.</p>
           <div class="person"><span class="avatar" aria-hidden="true">אש</span><span><b>איתמר שושנה, רו"ח</b><small>מנכ"ל Corz</small></span></div>
         </div>
-        <div id="calendly">היומן של איתמר נטען כאן</div>
+        <div id="calendly"><img src="../assets/milo.webp" alt="" aria-hidden="true"><b>היומן של איתמר</b><span>פגישת וידאו של 45 דקות. בוחרים מועד שנוח לכם, והזימון מגיע למייל.</span><a class="btn" href="#book" data-book>בחירת מועד</a></div>
       </div>
     </section>
   </div>
@@ -319,7 +322,7 @@ details p{margin:0 0 20px;font-size:17px}
     fill.style.setProperty('--p',(p*100).toFixed(1)+'%');
     steps.forEach(function(s){s.classList.toggle('lit',s.getBoundingClientRect().top<mid)});
   }
-  addEventListener('scroll',upd,{passive:true});addEventListener('resize',upd);upd();
+  var tick=false;addEventListener('scroll',function(){if(!tick){tick=true;requestAnimationFrame(function(){upd();tick=false;});}},{passive:true});addEventListener('resize',upd);upd();
 })();
 </script>
 </body>

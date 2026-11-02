@@ -92,27 +92,7 @@
   }
   document.querySelectorAll('[data-book]').forEach(function (a) { a.addEventListener('click', openBooking); });
 
-  // The inline calendar at the bottom of the page loads when it comes near the screen.
-  var inline = false;
-  function loadInline() {
-    var box = document.getElementById('calendly');
-    if (inline || !box) return;
-    inline = true;
-    box.innerHTML = '';
-    var w = document.createElement('div');
-    w.className = 'cal-inline';
-    w.setAttribute('data-url', url);
-    w.style.minWidth = '300px';
-    w.style.height = '700px';
-    box.appendChild(w);
-    calendlyReady(function () { window.Calendly.initInlineWidget({ url: url, parentElement: w }); });
-  }
-  if ('IntersectionObserver' in window) {
-    var target = document.getElementById('book');
-    if (target) new IntersectionObserver(function (en, o) {
-      if (en[0].isIntersecting) { loadInline(); o.disconnect(); }
-    }, { rootMargin: '400px' }).observe(target);
-  }
+  // No inline calendar: the Calendly embed pulls ~4.4MB of third-party scripts, so it loads only on a click.
 
   // Floating circle on the right, always on screen.
   var st = document.createElement('style');

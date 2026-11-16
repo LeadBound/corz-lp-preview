@@ -1,9 +1,12 @@
 /* Corz landing pages: per-lead tracking.
  * The link carries ?t=<opaque token> (never a name or an email) and ?s=<sector>.
- * A visit counts only after a human signal (scroll, pointer, touch, key, or 8 s visible), because mail
- * scanners such as Microsoft Safe Links open every link within seconds and run no interaction.
- * Events: visit, scroll_30, scroll_50, scroll_90, video_25/50/90, booking_opened, booking_scheduled.
- * ENDPOINT stays null until the n8n webhook exists; until then events only go to the console.
+ * The page does NOT decide who is human. Mail scanners (Microsoft Safe Links / Defender, Oracle, AWS) open every
+ * link in a real browser and scroll to the bottom in one second, so scroll and time-on-page proved nothing
+ * (16.11: all 17 alerts were scanners). Every event carries the facts and n8n decides, with the visitor's IP owner:
+ *   sid  one id per page load      tz/lang  browser time zone + language      wd  navigator.webdriver (automation)
+ *   inp  first REAL input (trusted pointer move / wheel / touch / key; scroll alone is not input)
+ *   jump scroll_90 reached under 0.8 s after the first scroll with no input (a scripted scroll-to-bottom)
+ * Events: visit, engaged, scroll_30/50/90, video_25/50/90, booking_click, booking_opened, booking_scheduled.
  */
 (function () {
   var ENDPOINT = 'https://bennivbee.app.n8n.cloud/webhook/corz-lp'; // n8n: Corz · Landing page tracking (uhXN0RhVwQLnfICI)
@@ -11,37 +14,41 @@
   var q = new URLSearchParams(location.search);
   var token = (q.get('t') || '').replace(/[^A-Za-z0-9_-]/g, '').slice(0, 24) || null;
   var page = document.documentElement.getAttribute('data-page') || 'unknown';
+  var t0 = Date.now();
+  var ctx = { sid: Math.random().toString(36).slice(2, 10), tz: '', lang: navigator.language || '', wd: !!navigator.webdriver, inp: '' };
+  try { ctx.tz = Intl.DateTimeFormat().resolvedOptions().timeZone || ''; } catch (e) { /* old browser */ }
   var sent = {};
-  var human = false;
-  var queue = [];
 
   function send(name, extra) {
-    if (sent[name]) return;
+    if (sent[name] || !token) return;
     sent[name] = true;
-    var body = { event: name, t: token, page: page, s: q.get('s'), at: new Date().toISOString(), extra: extra || null };
-    if (!human && name !== 'visit') { queue.push(body); return; }
-    if (!ENDPOINT) { console.info('[corz-track]', body); return; }
+    var x = { ms: Date.now() - t0 };
+    for (var k in ctx) x[k] = ctx[k];
+    for (var j in (extra || {})) x[j] = extra[j];
+    var body = { event: name, t: token, page: page, s: q.get('s'), at: new Date().toISOString(), extra: x };
     // A form body is CORS-safelisted, so the beacon needs no preflight; n8n reads it as body.d.
     try { navigator.sendBeacon(ENDPOINT, new URLSearchParams({ d: JSON.stringify(body) })); } catch (e) { /* tracking never breaks the page */ }
   }
+  send('visit');
 
-  function becameHuman() {
-    if (human) return;
-    human = true;
-    send('visit');
-    queue.splice(0).forEach(function (b) { sent[b.event] = false; send(b.event, b.extra); });
+  function input(e) {
+    if (!e.isTrusted || ctx.inp) return;
+    if (e.type === 'pointermove' && !(e.movementX || e.movementY)) return;
+    ctx.inp = e.type;
+    send('engaged');
   }
-  ['scroll', 'pointerdown', 'pointermove', 'touchstart', 'keydown'].forEach(function (ev) {
-    addEventListener(ev, becameHuman, { once: true, passive: true });
+  ['pointermove', 'pointerdown', 'wheel', 'touchstart', 'keydown'].forEach(function (ev) {
+    addEventListener(ev, input, { passive: true });
   });
-  setTimeout(function () { if (document.visibilityState === 'visible') becameHuman(); }, 8000);
 
+  var firstScroll = 0;
   addEventListener('scroll', function () {
     var h = document.documentElement;
     var p = (h.scrollTop + innerHeight) / h.scrollHeight;
+    if (!firstScroll) firstScroll = Date.now();
     if (p > 0.3) send('scroll_30');
     if (p > 0.5) send('scroll_50');
-    if (p > 0.9) send('scroll_90');
+    if (p > 0.9) send('scroll_90', { jump: !ctx.inp && Date.now() - firstScroll < 800 });
   }, { passive: true });
 
   document.querySelectorAll('video[data-track]').forEach(function (v) {
